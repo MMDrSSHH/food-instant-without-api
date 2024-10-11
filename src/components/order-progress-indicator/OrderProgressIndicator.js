@@ -10,7 +10,7 @@ import React, {
 import SandWatchIcon from "../svgs/SandWatchIcon";
 import BbqIcon from "../svgs/BbqIcon";
 import BikeFoodDeliveryIcon from "../svgs/BikeFoodDeliveryIcon";
-import CheckMarkIcon from "../svgs/CheckmarkIcon";
+import CheckMarkIcon from "../svgs/CheckMarkIcon";
 import { OrderStatus } from "@/utils/constants";
 
 const orderStatusToString = (orderStatus) => {
