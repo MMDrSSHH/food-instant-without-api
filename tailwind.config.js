@@ -8,10 +8,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        primary: "#FFA62F",
+        secondary: "#FFC96F",
+        onPrimary: "#FFE8C8",
+        green: "#ACD793",
+        gray: "#616161",
+      },
+      screens: {
+        tall: { raw: "(min-height: 800px)" },
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")({ nocompatible: true })],
 };

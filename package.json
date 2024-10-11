@@ -9,14 +9,31 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^2.1.10",
+    "@reduxjs/toolkit": "^2.2.8",
+    "framer-motion": "^11.11.8",
+    "moment-jalaali": "^0.10.1",
+    "next": "14.2.15",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.15"
+    "react-loading-skeleton": "^3.5.0",
+    "react-otp-input": "^3.1.1",
+    "react-redux": "^9.1.2",
+    "react-responsive": "^10.0.0",
+    "react-timer-hook": "^3.0.7",
+    "react-toastify": "^10.0.5",
+    "sharp": "^0.33.5",
+    "swiper": "^11.1.14",
+    "vaul": "^1.0.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
+    "@types/moment-jalaali": "^0.7.9",
+    "@types/react-dom": "^18.3.0",
     "eslint": "^8",
-    "eslint-config-next": "14.2.15"
+    "eslint-config-next": "14.2.15",
+    "postcss": "^8",
+    "tailwind-scrollbar": "^3.1.0",
+    "tailwindcss": "^3.4.1"
   }
 }
