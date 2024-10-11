@@ -8,7 +8,7 @@ function CurrentOrderItemCard({ item }) {
       {/* Right */}
       <div className="flex items-center gap-[24px]">
         <Image
-          src={`${getStaticRoute()}/${item.image}`}
+          src={`/${item.image}`}
           alt={item.name}
           width={120}
           height={120}

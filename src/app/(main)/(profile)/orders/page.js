@@ -10,50 +10,50 @@ function OrdersPage() {
   const [orders, setOrders] = useState([]);
   const [total, setTotal] = useState(null);
 
-  const fetchOrders = async () => {
-    try {
-      await getAccessToken();
-      const res = await fetch(`${getApiRoute()}/orders/get-order-history`, {
-        credentials: "include",
-      });
+  // const fetchOrders = async () => {
+  //   try {
+  //     await getAccessToken();
+  //     const res = await fetch(`${getApiRoute()}/orders/get-order-history`, {
+  //       credentials: "include",
+  //     });
 
-      if (res.ok) {
-        const data = await res.json();
+  //     if (res.ok) {
+  //       const data = await res.json();
 
-        console.log(data);
-        setOrders(data);
-      }
-    } catch (error) {
-      // Error
-    }
-  };
+  //       console.log(data);
+  //       setOrders(data);
+  //     }
+  //   } catch (error) {
+  //     // Error
+  //   }
+  // };
 
-  const fetchTotal = async () => {
-    try {
-      await getAccessToken();
-      const res = await fetch(`${getApiRoute()}/orders/order-history-total`, {
-        credentials: "include",
-      });
+  // const fetchTotal = async () => {
+  //   try {
+  //     await getAccessToken();
+  //     const res = await fetch(`${getApiRoute()}/orders/order-history-total`, {
+  //       credentials: "include",
+  //     });
 
-      if (res.ok) {
-        const data = await res.json();
+  //     if (res.ok) {
+  //       const data = await res.json();
 
-        console.log(data);
-        setTotal(data);
-      }
-    } catch (error) {
-      // Error
-    }
-  };
+  //       console.log(data);
+  //       setTotal(data);
+  //     }
+  //   } catch (error) {
+  //     // Error
+  //   }
+  // };
 
-  //#region Effects
+  // //#region Effects
 
-  useEffect(() => {
-    fetchOrders();
-    fetchTotal();
-  }, []);
+  // useEffect(() => {
+  //   fetchOrders();
+  //   fetchTotal();
+  // }, []);
 
-  //#endregion
+  // //#endregion
 
   return (
     <div className="w-[90%] mx-auto mt-[60px] pb-[60px]">

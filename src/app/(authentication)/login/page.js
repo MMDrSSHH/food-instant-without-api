@@ -68,6 +68,27 @@ function LoginPage() {
   //   setIsPending(false);
   // };
 
+  const submit = (e) => {
+    e.preventDefault();
+
+    if (phoneNumber) {
+      const id = toast.loading("درحال پردازش ...");
+      setTimeout(() => {
+        toast.update(id, {
+          render: "کد احراز هویت شما: 123456",
+          type: "success",
+          isLoading: false,
+          autoClose: null,
+          closeButton: null,
+        });
+
+        if (searchParams.has("returnUrl"))
+          router.replace(`/verify?returnUrl=${searchParams.get("returnUrl")}`);
+        else router.replace("/verify");
+      }, 2000);
+    }
+  };
+
   return (
     <>
       {/* Mobile */}
@@ -75,9 +96,7 @@ function LoginPage() {
         <h2 className="text-[24px] text-gray font-bold">
           به هپی‌فود خوش آمدید
         </h2>
-        <form
-        // onSubmit={submit}
-        >
+        <form onSubmit={submit}>
           <div className="mt-[90px]">
             <SectionHeader>ورود با نام‌ کاربری و رمز عبور</SectionHeader>
             <div className="mt-[50px] flex flex-col gap-[20px]">
@@ -128,9 +147,7 @@ function LoginPage() {
             <h2 className="text-[24px] text-gray font-bold">
               به هپی‌فود خوش آمدید
             </h2>
-            <form
-            // onSubmit={submit}
-            >
+            <form onSubmit={submit}>
               <div className="mt-[90px]">
                 <SectionHeader>ورود با نام‌ کاربری و رمز عبور</SectionHeader>
                 <div className="mt-[50px] flex flex-col gap-[20px]">

@@ -20,7 +20,7 @@ function MenuTopbar() {
           />
         </div>
         <h1 className="font-extrabold text-primary text-lg lg:text-[32px]">
-          هپی فود
+          Food-Instant
         </h1>
       </Link>
       <div className="flex items-center gap-[16px]">

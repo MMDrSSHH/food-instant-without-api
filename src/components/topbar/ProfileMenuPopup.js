@@ -14,7 +14,8 @@ import { formatCurrency } from "@/utils/formatters";
 const menuContext = createContext();
 
 function ProfileMenuPopup({ show, onClose }) {
-  const points = useAppSelector((state) => state.user.points);
+  // const points = useAppSelector((state) => state.user.points);
+  const points = 275000;
 
   return (
     <menuContext.Provider value={{ showMenu: show, closeMenu: onClose }}>
@@ -80,18 +81,20 @@ function ProfileMenuPopup({ show, onClose }) {
 
 function MenuItem({ name, icon, href = "", isExit = false }) {
   const { closeMenu } = useContext(menuContext);
-  const logout = async () => {
+  const logout = () => {
     try {
-      const res = await fetch(`${getApiRoute()}/auth/logout`, {
-        credentials: "include",
-        cache: "no-store",
-      });
+      // const res = await fetch(`${getApiRoute()}/auth/logout`, {
+      //   credentials: "include",
+      //   cache: "no-store",
+      // });
 
-      if (res.ok) {
-        window.location.reload();
-      } else {
-        // Error
-      }
+      document.cookie =
+        "isLoggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      // if (res.ok) {
+      window.location.reload();
+      // } else {
+      //   // Error
+      // }
       closeMenu();
     } catch (error) {
       // error

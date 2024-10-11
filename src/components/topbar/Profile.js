@@ -9,8 +9,27 @@ import { setPoints, setUser } from "@/lib/features/user/userSlice";
 import { getAccessToken } from "@/utils/auth";
 import { getApiRoute } from "@/utils/constants";
 
+const getCookie = (cookieName) => {
+  // Access all cookies
+  const cookies = document.cookie
+    .split("; ") // Split cookies by '; '
+    .map((cookie) => cookie.split("=")); // Split each cookie into [name, value] pairs
+
+  // Find the cookie with the specified name
+  const foundCookie = cookies.find(([name]) => name === cookieName);
+
+  // Return the cookie value or undefined if not found
+  return foundCookie ? decodeURIComponent(foundCookie[1]) : undefined;
+};
+
 function Profile() {
-  const authData = useAppSelector((state) => state.user);
+  // const authData = useAppSelector((state) => state.user);
+  const isLoggedIn = getCookie("isLoggedIn");
+
+  const authData = {
+    isAuthenticated: !!isLoggedIn,
+    user: { fullName: "کاربر گرامی", phoneNumber: "09011111111" },
+  };
   const dispatch = useAppDispatch();
   const [showMenu, setShowMenu] = useState(false);
 

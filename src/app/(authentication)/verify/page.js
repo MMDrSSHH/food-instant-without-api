@@ -31,131 +31,167 @@ function Verify() {
 
   //#region  Methods
 
-  const verifyErrorHandler = (error) => {
-    if (error.errorCode === ErrorCode.Expired) {
-      toast.error("کد تایید منقضی شده.");
-    } else {
-      toast.error("کد تایید معتبر نمی‌باشد!");
-    }
-  };
+  // const verifyErrorHandler = (error) => {
+  //   if (error.errorCode === ErrorCode.Expired) {
+  //     toast.error("کد تایید منقضی شده.");
+  //   } else {
+  //     toast.error("کد تایید معتبر نمی‌باشد!");
+  //   }
+  // };
 
-  const otpValidation = async (otp) => {
-    const otpSchema = string()
-      .required("لطفا کد تایید خود را وارد کنید!")
-      .matches(/^[0-9]{6}$/, { message: "لطفا کد تایید معتبر وارد کنید!" });
+  // const otpValidation = async (otp) => {
+  //   const otpSchema = string()
+  //     .required("لطفا کد تایید خود را وارد کنید!")
+  //     .matches(/^[0-9]{6}$/, { message: "لطفا کد تایید معتبر وارد کنید!" });
 
-    await otpSchema.validate(otp);
-  };
+  //   await otpSchema.validate(otp);
+  // };
 
-  const submit = async (e) => {
+  // const submit = async (e) => {
+  //   e.preventDefault();
+
+  //   let toastId = null;
+  //   try {
+  //     try {
+  //       await otpValidation(otp);
+  //     } catch (error) {
+  //       toast.error(error.errors[0]);
+  //       return;
+  //     }
+
+  //     setIsPending(true);
+  //     toastId = toast.loading("در حال بررسی کد تایید ...");
+  //     const headers = new Headers();
+  //     headers.append("Content-Type", "application/json");
+
+  //     const phoneNumber = localStorage.getItem("phoneNumber");
+
+  //     const res = await fetch(`${getApiRoute()}/auth/verify-otp`, {
+  //       method: "POST",
+  //       headers,
+  //       credentials: "include",
+  //       body: JSON.stringify({
+  //         otp,
+  //         phoneNumber,
+  //       }),
+  //     });
+
+  //     if (res.status === 200) {
+  //       const user = await res.json();
+  //       dispatch(setUser({ ...user }));
+  //       toast.update(toastId, {
+  //         render: `خوش آمدید ${user.fullName ?? ""}`,
+  //         type: "success",
+  //         autoClose: null,
+  //         closeButton: null,
+  //         isLoading: false,
+  //       });
+  //       if (searchParams.has("returnUrl"))
+  //         router.replace(searchParams.get("returnUrl"));
+  //       else router.replace("/");
+  //       // Navigate to returnUrl
+  //     } else {
+  //       const errorData = await res.json();
+  //       toast.dismiss(toastId);
+
+  //       verifyErrorHandler(errorData);
+  //     }
+  //   } catch (error) {
+  //     toast.dismiss(toastId);
+  //     console.log(error.message);
+  //   }
+
+  //   setIsPending(false);
+  // };
+
+  const submit = (e) => {
     e.preventDefault();
 
-    let toastId = null;
-    try {
-      try {
-        await otpValidation(otp);
-      } catch (error) {
-        toast.error(error.errors[0]);
-        return;
-      }
-
-      setIsPending(true);
-      toastId = toast.loading("در حال بررسی کد تایید ...");
-      const headers = new Headers();
-      headers.append("Content-Type", "application/json");
-
-      const phoneNumber = localStorage.getItem("phoneNumber");
-
-      const res = await fetch(`${getApiRoute()}/auth/verify-otp`, {
-        method: "POST",
-        headers,
-        credentials: "include",
-        body: JSON.stringify({
-          otp,
-          phoneNumber,
-        }),
-      });
-
-      if (res.status === 200) {
-        const user = await res.json();
-        dispatch(setUser({ ...user }));
-        toast.update(toastId, {
-          render: `خوش آمدید ${user.fullName ?? ""}`,
+    const id = toast.loading("در حال پردازش ...");
+    if (otp.trim() === "123456") {
+      setTimeout(() => {
+        document.cookie = "isLoggedIn=true; SameSite=none; Secure";
+        toast.update(id, {
+          render: "با موفقیت وارد شدید.",
           type: "success",
+          isLoading: false,
           autoClose: null,
           closeButton: null,
-          isLoading: false,
         });
         if (searchParams.has("returnUrl"))
           router.replace(searchParams.get("returnUrl"));
         else router.replace("/");
-        // Navigate to returnUrl
-      } else {
-        const errorData = await res.json();
-        toast.dismiss(toastId);
-
-        verifyErrorHandler(errorData);
-      }
-    } catch (error) {
-      toast.dismiss(toastId);
-      console.log(error.message);
-    }
-
-    setIsPending(false);
-  };
-
-  const resend = async () => {
-    let toastId = null;
-    try {
-      const phoneNumber = localStorage.getItem("phoneNumber");
-
-      if (!phoneNumber) {
-        toast.error("شماره همراه یافت نشد. لطفا دوباره وارد شوید.");
-      }
-
-      toastId = toast.loading("در حال بازارسالی کد تایید ...");
-      const res = await fetch(
-        `${getApiRoute()}/auth/resend-otp?phoneNumber=${phoneNumber}`,
-        {
-          method: "POST",
-        }
-      );
-
-      if (res.ok) {
-        const data = await res.json();
-        localStorage.setItem("otpExpiresAt", data);
-        setExpiresAt(new Date(data));
-        toast.update(toastId, {
-          render: "کد تایید ارسال شد.",
-          type: "success",
-          autoClose: null,
-          isLoading: false,
-          closeButton: null,
-        });
-      } else {
-        toast.update(toastId, {
-          render: "خطایی رخ داده!",
+      }, 2000);
+    } else {
+      setTimeout(() => {
+        toast.update(id, {
+          render: "کد احراز هویت معتبر وارد کنید!",
           type: "error",
-          autoClose: null,
           isLoading: false,
+          autoClose: null,
           closeButton: null,
         });
-      }
-    } catch (error) {
-      toast.update(toastId, {
-        render: "خطایی رخ داده!",
-        type: "error",
-        autoClose: null,
-        isLoading: false,
-        closeButton: null,
-      });
+      }, 2000);
     }
   };
+
+  const resend = () => {
+    toast.success("کد احراز هویت شما: 123456");
+  };
+
+  // const resend = async () => {
+  //   let toastId = null;
+  //   try {
+  //     const phoneNumber = localStorage.getItem("phoneNumber");
+
+  //     if (!phoneNumber) {
+  //       toast.error("شماره همراه یافت نشد. لطفا دوباره وارد شوید.");
+  //     }
+
+  //     toastId = toast.loading("در حال بازارسالی کد تایید ...");
+  //     const res = await fetch(
+  //       `${getApiRoute()}/auth/resend-otp?phoneNumber=${phoneNumber}`,
+  //       {
+  //         method: "POST",
+  //       }
+  //     );
+
+  //     if (res.ok) {
+  //       const data = await res.json();
+  //       localStorage.setItem("otpExpiresAt", data);
+  //       setExpiresAt(new Date(data));
+  //       toast.update(toastId, {
+  //         render: "کد تایید ارسال شد.",
+  //         type: "success",
+  //         autoClose: null,
+  //         isLoading: false,
+  //         closeButton: null,
+  //       });
+  //     } else {
+  //       toast.update(toastId, {
+  //         render: "خطایی رخ داده!",
+  //         type: "error",
+  //         autoClose: null,
+  //         isLoading: false,
+  //         closeButton: null,
+  //       });
+  //     }
+  //   } catch (error) {
+  //     toast.update(toastId, {
+  //       render: "خطایی رخ داده!",
+  //       type: "error",
+  //       autoClose: null,
+  //       isLoading: false,
+  //       closeButton: null,
+  //     });
+  //   }
+  // };
   //#endregion
 
   //#region Effects
   useEffect(() => {
-    setExpiresAt(new Date(localStorage.getItem("otpExpiresAt")));
+    // Timer to 3 minutes later
+    setExpiresAt(new Date(Date.now() + 3 * 60 * 1000));
   }, []);
   //#endregion
 

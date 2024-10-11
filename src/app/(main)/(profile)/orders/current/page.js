@@ -17,20 +17,53 @@ import { cookies } from "next/headers";
 import CurrentOrderItemCard from "@/components/card/CurrentOrderItemCard";
 
 async function CurrentOrderPage() {
-  const cookieHeader = cookies().toString();
+  // const cookieHeader = cookies().toString();
 
-  const currentOrderRes = await fetch(`${getApiRoute()}/orders/current`, {
-    cache: "no-store",
-    headers: {
-      Cookie: cookieHeader,
+  // const currentOrderRes = await fetch(`${getApiRoute()}/orders/current`, {
+  //   cache: "no-store",
+  //   headers: {
+  //     Cookie: cookieHeader,
+  //   },
+  // });
+
+  let currentOrder = {
+    id: "f1a91106-4b69-4819-d1b8-08dcd1729a43",
+    createdAt: "2024-09-10T11:58:52.3319606",
+    orderStatus: 4,
+    note: null,
+    address: {
+      id: "d5777215-0655-4b8f-1861-08dcc0205f4b",
+      addressText: "خیابان خیالی، کوجه خیالی، پلاک 1",
+      zoneTitle: "شهر خیالی",
+      zoneId: 1,
+      deliveryCost: 100000,
     },
-  });
-
-  let currentOrder = null;
-  if (currentOrderRes.status === 200) {
-    currentOrder = await currentOrderRes.json();
-    currentOrder.createdAt = momentJalaali(currentOrder.createdAt);
-  }
+    user: {
+      fullName: "محمدرضا شکوهی",
+      phoneNumber: "09011111111",
+    },
+    paymentPrice: 6000000,
+    totalPrice: 7500000,
+    orderType: 1,
+    orderItems: [
+      {
+        id: "b2ffacc6-b279-4c25-2b3b-08dcd1729a44",
+        paymentPrice: 2500000,
+        price: 2500000,
+        count: 3,
+        name: "چیلی",
+        image: "foods\\5-چیلی.jpg",
+      },
+    ],
+    pointPrice: 750000,
+    discountText: "اعتبار",
+    orderNo: "1",
+    discountPrice: 1600000,
+  };
+  // if (currentOrderRes.status === 200) {
+  // currentOrder = await currentOrderRes.json();
+  currentOrder.createdAt = momentJalaali(currentOrder.createdAt);
+  // }
 
   return (
     <div className="w-[90%] mx-auto pb-[60px]">
